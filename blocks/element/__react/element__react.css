@@ -1,0 +1,11 @@
+.element__react {
+    width: 22px;
+    height: 19px;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url(../../../images/LikeButton.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    border: none;
+    cursor: pointer;
+}
