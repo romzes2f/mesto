@@ -1,0 +1,14 @@
+.popup__save {
+    margin: 0;
+    width: 358px;
+    height: 50px;
+    background-color: black;
+    border-radius: 2px;
+    border: 0;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+}

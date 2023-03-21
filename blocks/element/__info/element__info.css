@@ -1,0 +1,7 @@
+.element__info {
+    width: 87%;
+    margin: 25px auto 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
