@@ -14,6 +14,7 @@
         <img class="header__logo" src="./images/logo.svg" alt="логотип">
     </header>
     <main class="content">
+        <!--Profile-->
         <section class="profile">
             <div class="profile__id">
                 <img class="profile__avatar" src="./images/avatar.jpg" alt="аватар пользователя">
@@ -25,67 +26,59 @@
             </div>
             <button class="profile__add-button" type="button"></button>
         </section>
-        <section class="elements">
-            <div class="element">
-                <img class="element__photo" src="./images/amazon.png" alt="Амазонка">
-                <div class="element__info">
-                    <h2 class="element__title">Амазонка</h2>
-                    <button class="element__react" type="button"></button>
-                </div>
-            </div>
-            <div class="element">
-                <img class="element__photo" src="./images/antarctica.png" alt="Антарктида">
-                <div class="element__info">
-                    <h2 class="element__title">Антарктида</h2>
-                    <button class="element__react" type="button"></button>
-                </div>
-            </div>
-            <div class="element">
-                <img class="element__photo" src="./images/bigbluehole.png" alt="Большая голубая дыра>">
-                <div class="element__info">
-                    <h2 class="element__title">Большая голубая дыра</h2>
-                    <button class="element__react" type="button"></button>
-                </div>
-            </div>
-            <div class="element">
-                <img class="element__photo" src="./images/bigreef.png" alt="Большой барьерный риф">
-                <div class="element__info">
-                    <h2 class="element__title">Большой барьерный риф</h2>
-                    <button class="element__react" type="button"></button>
-                </div>
-            </div>
-            <div class="element">
-                <img class="element__photo" src="./images/indianocean.png" alt="Индийский океан">
-                <div class="element__info">
-                    <h2 class="element__title">Индийский океан</h2>
-                    <button class="element__react" type="button"></button>
-                </div>
-            </div>
-
-            <div class="element">
-                <img class="element__photo" src="./images/madagascar.png" alt="Мадагаскар">
-                <div class="element__info">
-                    <h2 class="element__title">Мадагаскар</h2>
-                    <button class="element__react" type="button"></button>
-                </div>
-            </div>
+        <!--Places grid-->
+        <section class="elements place-container">
         </section>
     </main>
     <footer class="footer">
         <p class="footer__copyright">© 2023 Щебетенко Роман</p>
     </footer>
-    <div class="popup">
+    <!--Profile Popup-->
+    <div class="popup popup-profile">
         <div class="popup__container">
             <h2 class="popup__title">Редактировать профиль</h2>
-            <form class="popup__form" name="popupForm">
-                <input type="text" placeholder="Имя" class="popup__input popup__input_type_name" name="nameInput">
+            <form class="popup__form popup-profile__form" name="popupForm">
+                <input type="text" placeholder="Имя" class="popup__input popup__input_type_name" name="InputName">
                 <input type="text" placeholder="О себе" class="popup__input popup__input_type_description"
-                    name="descriptionInput">
+                    name="InputDescription">
                 <button class="popup__save" type="submit">Сохранить</button>
             </form>
-            <button class="popup__close" type="button"></button>
+            <button class="popup__close popup-profile__close" type="button"></button>
         </div>
     </div>
+    <!--Place Popup-->
+    <div class="popup popup-place">
+        <div class="popup__container">
+            <h2 class="popup__title">Новое место</h2>
+            <form class="popup__form popup-place__form" name="popupPlaceForm">
+                <input type="text" placeholder="Название" class="popup__input popup__input_type_place"
+                    name="placeInput">
+                <input type="text" placeholder="Ссылка на картинку" class="popup__input popup__input_type_link"
+                    name="linkInput">
+                <button class="popup__save" type="submit">Создать</button>
+            </form>
+            <button class="popup__close popup-place__close" type="button"></button>
+        </div>
+    </div>
+    <!--Image Popup-->
+    <div class="popup popup-image">
+        <div class="popup__container popup__container_img">
+            <img class="popup__photo" alt="Увеличенная фотография">
+            <h2 class="popup__place"></h2>
+            <button class="popup__close popup-image__close" type="button"></button>
+        </div>
+    </div>
+    <!--Template-->
+    <template class="element-template">
+        <article class="element">
+            <img class="element__photo" alt="Фотография">
+            <div class="element__info">
+                <h2 class="element__name"></h2>
+                <button class="element__react" type="button"></button>
+            </div>
+            <button class="element__remove" type="button"></button>
+        </article>
+    </template>
     <script src="scripts/index.js"></script>
 </body>
 
