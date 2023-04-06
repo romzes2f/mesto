@@ -98,10 +98,10 @@ const placeTemplate = document.querySelector(".element-template").content;
 const popupPlacePhoto =popupEnlargeImage.querySelector(".popup__photo");
 const popupPlaceTitle = popupEnlargeImage.querySelector(".popup__place");
 
-///InitialCards///
+///Функция для InitialCards///
 function renderInitialCards(item) {
     const placeElement = placeTemplate.querySelector('.element').cloneNode(true);
-    const titleElement = placeElement.querySelector('.element__name');
+    const titleElement = placeElement.querySelector('.element__title');
     titleElement.textContent = item.name;
     const photoElement = placeElement.querySelector('.element__photo');
     photoElement.src = item.link;
