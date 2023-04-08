@@ -20,8 +20,8 @@ const popupOpenButtonImage = document.querySelector(".element__photo");
 
 popupOpenButtonProfile.addEventListener('click', function() {
     openPopupElement(popupEditProfile);
-    popupInputName.value = profileName.textContent;
-    popupInputDescription.value = profileDescription.textContent;
+    inputNameFormProfile.value = profileName.textContent;
+    inputDescriptionFormProfile.value = profileDescription.textContent;
 })
 
 popupOpenButtonPlace.addEventListener('click', function() {
@@ -52,18 +52,18 @@ popupCloseButtonImage.addEventListener('click', function() {
 const popupFormProfile = document.querySelector(".popup-profile__form");
 const profileName = document.querySelector(".profile__name");
 const profileDescription = document.querySelector(".profile__description");
-const popupInputName = popupFormProfile.querySelector(".popup__input_type_name");
-const popupInputDescription = popupFormProfile.querySelector(".popup__input_type_description");
+const inputNameFormProfile = popupFormProfile.querySelector(".popup__input_type_name");
+const inputDescriptionFormProfile = popupFormProfile.querySelector(".popup__input_type_description");
 
 ///Профиль - Submit///
-function EditProfile(evt) {
+function editProfile(evt) {
     evt.preventDefault();
-    profileName.textContent = popupInputName.value;
-    profileDescription.textContent = popupInputDescription.value;
+    profileName.textContent = inputNameFormProfile.value;
+    profileDescription.textContent = inputDescriptionFormProfile.value;
     closePopupElement(popupEditProfile);
 }
 
-popupFormProfile.addEventListener('submit', EditProfile);
+popupFormProfile.addEventListener('submit', editProfile);
 
 ///Grid Template///
 const initialCards = [
@@ -105,11 +105,11 @@ function renderInitialCards(item) {
     titleElement.textContent = item.name;
     const photoElement = placeElement.querySelector('.element__photo');
     photoElement.src = item.link;
-    const reactElement = placeElement.querySelector('.element__react');
+    const elementLikeReact = placeElement.querySelector('.element__react');
     const removeElement = placeElement.querySelector('.element__remove');
 
-    reactElement.addEventListener('click', () => {
-        reactElement.classList.toggle('element__react_active')
+    elementLikeReact.addEventListener('click', () => {
+        elementLikeReact.classList.toggle('element__react_active')
     });
 
     removeElement.addEventListener('click', () => {
