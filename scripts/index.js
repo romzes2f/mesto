@@ -92,27 +92,33 @@ popupFormProfile.addEventListener('submit', submitEditProfileForm);
 const initialCards = [
     {
       name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg',
+      alt: 'Архыз'
     },
     {
       name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg',
+      alt: 'Челябинская область'
     },
     {
       name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg',
+      alt: 'Иваново'
     },
     {
       name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg',
+      alt: 'Камчатка'
     },
     {
       name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg',
+      alt: 'Холмогорский район'
     },
     {
       name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg',
+      alt: 'Байкал'
     }
   ];
 
@@ -129,6 +135,7 @@ function renderInitialCards(item) {
     titleElement.textContent = item.name;
     const photoElement = placeElement.querySelector('.element__photo');
     photoElement.src = item.link;
+    photoElement.alt = item.name;
     const elementLikeReact = placeElement.querySelector('.element__react');
     const removeElement = placeElement.querySelector('.element__remove');
 
@@ -144,6 +151,7 @@ function renderInitialCards(item) {
         openPopupElement(popupEnlargeImage);
         popupPlacePhoto.src = photoElement.src;
         popupPlaceTitle.textContent = titleElement.textContent;
+        popupPlacePhoto.alt = titleElement.textContent;
     });
 
     return placeElement;
@@ -168,7 +176,7 @@ function addCard(evt) {
     })
     placeContainer.prepend(newCard);
     closePopupElement(popupAddPlace);
-    evt.target.reset();
+    /*evt.target.reset();*/
 }
 
 popupPlaceFormElement.addEventListener('submit', addCard);

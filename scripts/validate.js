@@ -12,12 +12,10 @@ const config = {
 const enableValidation = ({formSelector, ...rest}) => {
     const forms = Array.from(document.querySelectorAll(formSelector));
     forms.forEach((formElement) => {
-        formElement.addEventListener('submit', (e) => {
-            e.preventDefault()
-        });
         setEventListeners(formElement, rest)
     })
 }
+
 
 const setEventListeners = (formElement, {inputSelector, submitButton, ...rest}) => {
     const formInputs = Array.from(formElement.querySelectorAll(inputSelector));
@@ -25,7 +23,7 @@ const setEventListeners = (formElement, {inputSelector, submitButton, ...rest}) 
     disableButtonSubmit(formButton, rest);
     formInputs.forEach(input => {
         input.addEventListener('input', () => {
-            checkValidityInput(input, rest);
+            checkValidityInput(formElement, input, rest);
             if (hasInvalidInput(formInputs)) {
                 disableButtonSubmit(formButton, rest);
             }
@@ -36,13 +34,11 @@ const setEventListeners = (formElement, {inputSelector, submitButton, ...rest}) 
     });
 }
 
-const checkValidityInput = (inputElement, {inputErrorClass, errorClass}) => {
+const checkValidityInput = (formElement, inputElement, {inputErrorClass, errorClass}) => {
     if (inputElement.validity.valid) {
-        hideInputError(inputElement, errorClass);
-        disableInputError(inputElement, inputErrorClass);
+        hideInputError(formElement, inputElement, errorClass, inputErrorClass);
     } else {
-        showInputError(inputElement, errorClass);
-        enableInputError(inputElement, inputErrorClass);
+        showInputError(formElement, inputElement, errorClass, inputErrorClass);
     }
 }
 
@@ -60,26 +56,20 @@ const enableButtonSubmit = (button, {inactiveButtonClass}) => {
     button.disabled = false;
 }
 
-const enableInputError = (input, inputErrorClass) => {
+const showInputError = (formElement, input, errorClass, inputErrorClass) => {
+    const inputName = input.getAttribute('name');
+    const errorElement = formElement.querySelector(`#${inputName}-error`);
+    errorElement.textContent = input.validationMessage;
+    errorElement.classList.add(errorClass);
     input.classList.add(inputErrorClass);
 }
 
-const disableInputError = (input, inputErrorClass) => {
-    input.classList.remove(inputErrorClass);
-}
-
-const showInputError = (input, errorClass) => {
+const hideInputError = (formElement, input, errorClass, inputErrorClass) => {
     const inputName = input.getAttribute('name');
-    const errorElement = document.getElementById(`${inputName}-error`);
-    errorElement.textContent = input.validationMessage;
-    errorElement.classList.add(errorClass);
-}
-
-const hideInputError = (input, errorClass) => {
-    const inputName = input.getAttribute('name');
-    const errorElement = document.getElementById(`${inputName}-error`);
+    const errorElement = formElement.querySelector(`#${inputName}-error`);
     errorElement.classList.remove(errorClass);
     errorElement.textContent = '';
+    input.classList.remove(inputErrorClass);
 }
 
 enableValidation(config);
@@ -87,13 +77,12 @@ enableValidation(config);
 const resetError = (formElement) => {
     formElement.querySelectorAll(config.inputSelector).forEach((input) => {
         if (!input.validity.valid) {
-            hideInputError(input, config.errorClass);
-            disableInputError(input, config.inputErrorClass);
+            hideInputError(formElement, input, config.errorClass);
         }        
     });
 }
 
 const resetButton = (formElement) => {
     const buttonElement = formElement.querySelector(config.submitButton);
-    disableButtonSubmit(buttonElement, config);
+    disableButtonSubmit(formElement, buttonElement, config);
 }
