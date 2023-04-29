@@ -1,11 +1,8 @@
 .popup__error_active {
-    margin: 0 0 13px 0;
+    padding: 3px 0 0 0;
+    font-style: normal;
     font-size: 12px;
     font-weight: 400;
     line-height: 15px;
     color: #ff0000;
-}
-
-.popup__error_active:last-of-type {
-    margin-bottom: 30px;
 }
