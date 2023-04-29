@@ -5,8 +5,8 @@ const config = {
     inputSelector: '.popup__input',
     submitButton: '.popup__save',
     inactiveButtonClass: 'popup__save_inactive',
-    inputErrorClass: 'popup__input_invalid',
-    errorClass: 'popup__error_active',    
+    inputErrorClass: 'popup__input_invalid', ///красная полоска///
+    errorClass: 'popup__error_active',    ///ошибка под полем ввода///
 }
 
 const enableValidation = ({formSelector, ...rest}) => {
@@ -77,7 +77,7 @@ enableValidation(config);
 const resetError = (formElement) => {
     formElement.querySelectorAll(config.inputSelector).forEach((input) => {
         if (!input.validity.valid) {
-            hideInputError(formElement, input, config.errorClass);
+            hideInputError(formElement, input, config.errorClass, config.inputErrorClass);
         }        
     });
 }
