@@ -5,12 +5,12 @@ export class Card {
     constructor(data, templateSelector) {
         this._name = data.name;
         this._image = data.link;
-        this._alt = data.alt;
-        this._templateSelector = templateSelector;
+        this._alt = data.name;
+        this._template = templateSelector;
     }
 
     _getTemplate() {
-        const cardElement = this._templateSelector.cloneNode(true);
+        const cardElement = this._template.cloneNode(true);
         return cardElement;
     }
 
