@@ -89,17 +89,22 @@ popupFormProfile.addEventListener('submit', submitEditProfileForm);
 ///Cards///
 
 const placeContainer = document.querySelector('.place-container');
-const templateSelector = document.querySelector(".element-template").content.querySelector(".element");
+const template = document.querySelector(".element-template").content.querySelector(".element");
 
 function generateCard(card) {
   const cardElement = card.generateCard();
   placeContainer.prepend(cardElement);
-}
+};
+
+function createCard(element, template) {
+  const card = new Card(element, template);
+  return card.generateCard();
+};
 
 initialCards.forEach((element) => {
-  const card = new Card(element, templateSelector);
-  generateCard(card);
-})
+  const cardElement = createCard(element, template);
+  placeContainer.prepend(cardElement);
+});
 
 ///Add Card///
 
@@ -113,7 +118,7 @@ function addPlaceElement(evt) {
     name: popupPlaceInputName.value,
     link: popupPlaceInputLink.value,
     alt: popupPlaceInputName.value
-  }, templateSelector);
+  }, template);
   generateCard(newCard);
   closePopupElement(popupAddPlace);
   evt.target.reset();
