@@ -16,7 +16,7 @@ export class FormValidator {
       input.addEventListener('input', () => {
         this._checkValidityInput(input);
         if (this._hasInvalidInput(this._formInputs)) {
-          this._disableButtonSubmit(this._submitButton);
+          this.disableButtonSubmit(this._submitButton);
         }
         else {
           this._enableButtonSubmit(this._submitButton);
@@ -50,7 +50,7 @@ export class FormValidator {
     inputElement.classList.remove(this._inputErrorClass);
   }
 
-  _disableButtonSubmit() {
+  disableButtonSubmit() {
     this._buttonElement.classList.add(this._inactiveButtonClass);
     this._buttonElement.disabled = true;
   }
@@ -70,9 +70,5 @@ export class FormValidator {
         this._hideInputError(input);
       }
     });
-  }
-
-  resetButton() {
-    this._disableButtonSubmit();
   }
 }
