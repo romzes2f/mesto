@@ -33,7 +33,7 @@ const popupOpenButtonPlace = document.querySelector(".profile__add-button");
 
 popupOpenButtonProfile.addEventListener('click', function () {
   validationformEditProfile.resetError();
-  validationformEditProfile.resetButton();
+  validationformEditProfile.disableButtonSubmit();
   popupInputName.value = profileName.textContent;
   popupInputDescription.value = profileDescription.textContent;
   openPopupElement(popupEditProfile);
@@ -41,7 +41,7 @@ popupOpenButtonProfile.addEventListener('click', function () {
 
 popupOpenButtonPlace.addEventListener('click', function () {
   validationformAddPlace.resetError();
-  validationformAddPlace.resetButton();
+  validationformAddPlace.disableButtonSubmit();
   formAddPlace.reset();
   openPopupElement(popupAddPlace);
 })
@@ -91,11 +91,6 @@ popupFormProfile.addEventListener('submit', submitEditProfileForm);
 const placeContainer = document.querySelector('.place-container');
 const template = document.querySelector(".element-template").content.querySelector(".element");
 
-function generateCard(card) {
-  const cardElement = card.generateCard();
-  placeContainer.prepend(cardElement);
-};
-
 function createCard(element, template) {
   const card = new Card(element, template);
   return card.generateCard();
@@ -114,12 +109,12 @@ const popupPlaceInputLink = popupPlaceFormElement.querySelector(".popup__input_t
 
 function addPlaceElement(evt) {
   evt.preventDefault();
-  const newCard = new Card({
+  const newCard = createCard({
     name: popupPlaceInputName.value,
     link: popupPlaceInputLink.value,
     alt: popupPlaceInputName.value
   }, template);
-  generateCard(newCard);
+  placeContainer.prepend(newCard);
   closePopupElement(popupAddPlace);
   evt.target.reset();
 }
