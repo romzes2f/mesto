@@ -16,7 +16,7 @@ export class FormValidator {
       input.addEventListener('input', () => {
         this._checkValidityInput(input);
         if (this._hasInvalidInput(this._formInputs)) {
-          this._disableButtonSubmit(this._submitButton);
+          this.disableButtonSubmit(this._submitButton);
         }
         else {
           this._enableButtonSubmit(this._submitButton);
