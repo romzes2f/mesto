@@ -16,7 +16,7 @@ export class FormValidator {
       input.addEventListener('input', () => {
         this._checkValidityInput(input);
         if (this._hasInvalidInput(this._formInputs)) {
-          this.disableButtonSubmit(this._submitButton);
+          this._disableButtonSubmit(this._submitButton);
         }
         else {
           this._enableButtonSubmit(this._submitButton);
@@ -39,6 +39,7 @@ export class FormValidator {
 
   _showInputError(inputElement, errorMessage) {
     const errorElement = this._formElement.querySelector(`#${inputElement.getAttribute('name')}-error`);
+    errorElement.textContent = errorMessage;
     errorElement.classList.add(this._errorClass);
     inputElement.classList.add(this._inputErrorClass);
   }
