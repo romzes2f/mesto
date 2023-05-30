@@ -1,16 +1,14 @@
-import { openPopupElement } from "./utils.js";
-import { popupImage } from "./utils.js";
-
 export class Card {
-    constructor(data, templateSelector) {
+    constructor(data, templateSelector, handleCardClick) {
         this._name = data.name;
         this._image = data.link;
         this._alt = data.name;
         this._template = templateSelector;
+        this._handleCardClick = handleCardClick;
     }
 
     _getTemplate() {
-        const cardElement = this._template.cloneNode(true);
+        const cardElement = document.querySelector(this._template).content.querySelector(".element").cloneNode(true);
         return cardElement;
     }
 
@@ -18,11 +16,11 @@ export class Card {
         this._element = this._getTemplate();
         this._likeButton = this._element.querySelector('.element__react');
         this._cardImage = this._element.querySelector('.element__photo');
-        this._setEventListeners();
         this._cardImage.src = this._image;
         this._cardImage.alt = this._alt;
         this._element.querySelector('.element__title').textContent = this._name;
 
+        this._setEventListeners();
         return this._element;
     }
 
@@ -33,13 +31,12 @@ export class Card {
     _removeCard() {
         this._element.remove();
         this._element = null;
+        this._likeButton = null;
+        this._cardImage = null;
     }
 
     _expandImage() {
-        popupImage.querySelector('.popup__photo').src = this._image;
-        popupImage.querySelector('.popup__photo').alt = this._alt;
-        popupImage.querySelector('.popup__place').textContent = this._name;
-        openPopupElement(popupImage);
+        this._handleCardClick(this._name, this._image);
     }
 
 
