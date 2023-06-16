@@ -3,3 +3,9 @@
     height: 120px;
     border-radius: 50%;
 }
+
+.profile__avatar:hover {
+    opacity: 0.2;
+    transition: opacity 0.1s linear;
+    cursor: pointer;
+}
