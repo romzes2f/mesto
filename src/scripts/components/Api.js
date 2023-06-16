@@ -1,113 +1,79 @@
 export class Api {
-    constructor({ baseUrl, headers }) {
-        this._baseUrl = baseUrl;
-        this._headers = headers;
+    constructor(config) {
+        this._url = config.url;
+        this._headers = config.headers;
     }
 
-    async getId() {
-        try {
-            const idData = await fetch(`${this._baseUrl}/users/me`, {
-                method: 'GET',
-                headers: this._headers
-            });
-            return idData.json();
-        } catch (err) {
-            console.error('Ошибка получения ID: ', err);
-        }
+    receiveUserInfo() {
+        return fetch(`${this._url}/users/me`, {
+            headers: this._headers,
+        })
+            .then(this._checkingResponse);
     }
 
-    async getCards() {
-        try {
-            const cardsData = await fetch(`${this._baseUrl}/cards`, {
-                method: 'GET',
-                headers: this._headers
-            });
-            return cardsData.json();
-        } catch (err) {
-            console.error('Ошибка получения списка карточек: ', err);
-        }
+    receiveCardsInfo() {
+        return fetch(`${this._url}/cards`, {
+            headers: this._headers,
+        })
+            .then(this._checkingResponse);
     }
 
-    async postCard(cardData) {
-        try {
-            const newCardData = await fetch(`${this._baseUrl}/cards`, {
-                method: 'POST',
-                headers: this._headers,
-                body: JSON.stringify({
-                    name: cardData.title,
-                    link: cardData.link
-                })
-            });
-            return newCardData.json();
-        } catch (err) {
-            console.error('Ошибка отправки новой карточки : ', err);
-        }
+    editProfileInfo(info) {
+        return fetch(`${this._url}/users/me`, {
+            method: 'PATCH',
+            headers: this._headers,
+            body: JSON.stringify(info)
+        })
+            .then(this._checkingResponse);
     }
 
-    async updateProfile(inputValues) {
-        try {
-            const newProfileData = await fetch(`${this._baseUrl}/users/me`, {
-                method: 'PATCH',
-                headers: this._headers,
-                body: JSON.stringify({
-                    name: inputValues.title,
-                    about: inputValues.caption
-                })
-            });
-            return newProfileData.json();
-        } catch (err) {
-            console.error('Ошибка обновления данных профиля: ', err);
-        }
+    createNewCard(info) {
+        return fetch(`${this._url}/cards`, {
+            method: 'POST',
+            headers: this._headers,
+            body: JSON.stringify(info)
+        })
+            .then(this._checkingResponse);
     }
 
-    async updateAvatar(inputValue) {
-        try {
-            const newAvatar = await fetch(`${this._baseUrl}/users/me/avatar`, {
-                method: 'PATCH',
-                headers: this._headers,
-                body: JSON.stringify({
-                    avatar: inputValue.avatar
-                })
-            });
-            return newAvatar.json();
-        } catch (err) {
-            console.error('Ошибка обновления аватара: ', err);
-        }
+    deleteCard(cardId) {
+        return fetch(`${this._url}/cards/${cardId}`, {
+            method: 'DELETE',
+            headers: this._headers,
+        })
+            .then(this._checkingResponse);
     }
 
-    async putLike(cardId) {
-        try {
-            const countLike = await fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-                method: 'PUT',
-                headers: this._headers
-            });
-            return countLike.json();
-        } catch (err) {
-            console.error('Ошибка сервера при постановке лайка: ', err);
-        }
+    likeCard(cardId) {
+        return fetch(`${this._url}/cards/${cardId}/likes`, {
+            method: 'PUT',
+            headers: this._headers,
+        })
+            .then(this._checkingResponse);
     }
 
-    async deleteLike(cardId) {
-        try {
-            const countLike = await fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-                method: 'DELETE',
-                headers: this._headers
-            });
-            return countLike.json();
-        } catch (err) {
-            console.error('Ошибка сервера при удалении лайка: ', err);
-        }
+    deleteLike(cardId) {
+        return fetch(`${this._url}/cards/${cardId}/likes`, {
+            method: 'DELETE',
+            headers: this._headers,
+        })
+            .then(this._checkingResponse);
     }
 
-    async deleteCard(cardId) {
-        try {
-            const cardDelete = await fetch(`${this._baseUrl}/cards/${cardId}`, {
-                method: 'DELETE',
-                headers: this._headers
-            });
-            return cardDelete.json();
-        } catch (err) {
-            console.error('Ошибка удаления карточки: ', err);
+    changeAvatar(info) {
+        return fetch(`${this._url}/users/me/avatar`, {
+            method: 'PATCH',
+            headers: this._headers,
+            body: JSON.stringify(info)
+        })
+            .then(this._checkingResponse);
+    }
+
+    _checkingResponse(res) {
+        if (res.ok) {
+            return res.json()
+        } else {
+            return Promise.reject(`Ошибка: ${res.status}`);
         }
     }
-}
+}  
