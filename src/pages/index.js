@@ -1,3 +1,5 @@
+import "../pages/index.css"
+
 import {
     validationConfig,
     userNameSelector,
@@ -23,6 +25,7 @@ import {
     popupImageSelector,
     popupDeleteSelector
 } from "../scripts/utils/Constants.js";
+
 import { Api } from "../scripts/components/Api.js"
 import { Card } from "../scripts/components/Card.js";
 import { FormValidator } from "../scripts/components/FormValidator.js";
@@ -31,7 +34,6 @@ import { PopupWithImage } from "../scripts/components/PopupWithImage.js";
 import { UserInfo } from "../scripts/components/UserInfo.js";
 import { PopupWithForm } from "../scripts/components/PopupWithForm.js";
 import { PopupWithSubmitForm } from "../scripts/components/PopupWithConfirmation.js";
-import "../pages/index.css"
 
 const api = new Api({
     url: 'https://mesto.nomoreparties.co/v1/cohort-68',
@@ -60,7 +62,7 @@ Promise.all([
     })
 
 
-//Section и Card//
+//Section & Card//
 const popupDelete = new PopupWithSubmitForm(popupDeleteSelector, handleDeleteConfirm);
 popupDelete.setEventListeners();
 
@@ -120,7 +122,7 @@ const handleCardClick = (name, link) => {
 const popupImage = new PopupWithImage(popupImageSelector);
 popupImage.setEventListeners();
 
-///Валидация форм///
+///Form Validation//
 const validationformEditProfile = new FormValidator(validationConfig, popupFormProfile);
 const validationformAddPlace = new FormValidator(validationConfig, popupFormPlace);
 const validationformEditAvatar = new FormValidator(validationConfig, popupFormAvatar);
@@ -129,7 +131,7 @@ validationformEditProfile.enableValidation();
 validationformAddPlace.enableValidation();
 validationformEditAvatar.enableValidation();
 
-///Данные профиля///
+///Profile///
 const userInfo = new UserInfo(userNameSelector, userStatusSelector, userAvatarSelector);
 
 const popupProfile = new PopupWithForm(popupProfileSelector, handleProfileSubmit);
@@ -164,7 +166,7 @@ const openPopupProfile = () => {
 
 popupOpenButtonProfile.addEventListener('click', openPopupProfile);
 
-///Новая карточка///
+///New Card///
 const popupNewCard = new PopupWithForm(popupPlaceSelector, handleCardSubmit);
 popupNewCard.setEventListeners();
 
@@ -194,7 +196,7 @@ const openPopupCard = () => {
 
 popupOpenButtonPlace.addEventListener('click', openPopupCard)
 
-//Аватарка
+//Profile Avatar///
 const popupAvatar = new PopupWithForm(popupAvatarSelector, handleAvatarSubmit);
 popupAvatar.setEventListeners();
 
