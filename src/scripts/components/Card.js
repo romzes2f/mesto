@@ -1,48 +1,101 @@
 export class Card {
-    constructor(data, templateSelector, handleCardClick) {
-        this._name = data.name;
-        this._image = data.link;
-        this._alt = data.name;
-        this._template = templateSelector;
-        this._handleCardClick = handleCardClick;
+    constructor(cardItem, myId, cardObj) {
+        this._card = cardItem;
+        this._myId = myId._id;
+        this._templateSelector = cardObj.templateSelector;
+        this._openDeletePopup = cardObj.openDeletePopup;
+        this._handleCardClick = cardObj.handleCardClick;
+        this._handleLike = cardObj.handleLike;
     }
 
-    _getTemplate() {
-        const cardElement = document.querySelector(this._template).content.querySelector(".element").cloneNode(true);
-        return cardElement;
+    _cloneTemplate() {
+        return document
+        .getElementById(this._templateSelector)
+        .content
+        .querySelector('.element')
+        .cloneNode(true);
     }
 
-    generateCard() {
-        this._element = this._getTemplate();
-        this._likeButton = this._element.querySelector('.element__react');
-        this._cardImage = this._element.querySelector('.element__photo');
-        this._cardImage.src = this._image;
-        this._cardImage.alt = this._alt;
-        this._element.querySelector('.element__title').textContent = this._name;
-
-        this._setEventListeners();
-        return this._element;
+    _toggleLike = () => {
+        this._like.classList.contains('element__react_active')
+        ? this._removeLike()
+        : this._addLike();
     }
 
-    _getLike() {
-        this._likeButton.classList.toggle('element__react_active');
+    async _addLike() {
+        try {
+            const newCard = await this._handleLike(true, this._card);
+            this._like.classList.add('element__react_active');
+            this._likesCount.textContent = newCard.likes.length;
+        } catch(err) {
+            console.error('Ошибка постановки лайка: ', err);
+        }
     }
 
-    _removeCard() {
-        this._element.remove();
-        this._element = null;
-        this._likeButton = null;
-        this._cardImage = null;
+    async _removeLike() {
+        try {
+            const newCard = await this._handleLike(false, this._card);
+            this._like.classList.remove('element__react_active');
+            this._likesCount.textContent = newCard.likes.length;
+        } catch(err) {
+            console.error('Ошибка удаления лайка: ', err);
+        }
     }
 
-    _expandImage() {
-        this._handleCardClick(this._name, this._image);
+    _checkLikeCount() {
+        this._likes = this._card.likes;
+        this._likes.forEach(likeOwner => {
+            this._checkLikeStatus(likeOwner);
+        }); 
+        this._likesCount = this._clone.querySelector('.element__react-count');
+        this._likesCount.textContent = this._likes.length;
     }
 
+    _checkLikeStatus(likeOwner) {
+        if(likeOwner._id === this._myId) {
+            this._like.classList.add('element__react_active');
+        }
+    }
+
+    _checkCardOwnerId() {
+        this._myId === this._card.owner._id
+        ? this._trash.style = 'display: block' 
+        : this._trash.style = 'display: none';
+    }
+
+    deleteCard() {
+        this._clone.remove();
+        this._clone = null;
+    }
+
+    _handleDeleteCard = () => {
+        this._openDeletePopup.open(this, this._card);
+    }
 
     _setEventListeners() {
-        this._likeButton.addEventListener('click', () => { this._getLike() });
-        this._element.querySelector('.element__remove').addEventListener('click', () => { this._removeCard() });
-        this._cardImage.addEventListener('click', () => { this._expandImage() });
+        this._like = this._clone.querySelector('.element__react');
+        this._trash = this._clone.querySelector('.element__remove');
+
+        this._like.addEventListener('click', this._toggleLike);
+        this._trash.addEventListener('click', this._handleDeleteCard);
+        this._cardImage.addEventListener('click', () => this._handleCardClick(this._cardImage));
+    }
+
+    createCard() {
+        this._clone = this._cloneTemplate();
+
+        this._cardImage = this._clone.querySelector('.element__photo');
+        this._cardTitle = this._clone.querySelector('.element__title');
+
+        this._cardImage.src = this._card.link;
+        this._cardImage.alt = this._card.name;
+        this._cardTitle.textContent = this._card.name;
+
+        this._setEventListeners();
+
+        this._checkCardOwnerId();
+        this._checkLikeCount();
+
+        return this._clone;
     }
 }
