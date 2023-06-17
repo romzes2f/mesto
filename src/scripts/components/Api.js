@@ -8,14 +8,14 @@ export class Api {
         return fetch(`${this._url}/users/me`, {
             headers: this._headers,
         })
-            .then(this._checkingResponse);
+            .then(this._checkResponse);
     }
 
     receiveCardsInfo() {
         return fetch(`${this._url}/cards`, {
             headers: this._headers,
         })
-            .then(this._checkingResponse);
+            .then(this._checkResponse);
     }
 
     editProfileInfo(info) {
@@ -24,7 +24,7 @@ export class Api {
             headers: this._headers,
             body: JSON.stringify(info)
         })
-            .then(this._checkingResponse);
+            .then(this._checkResponse);
     }
 
     createNewCard(info) {
@@ -33,7 +33,7 @@ export class Api {
             headers: this._headers,
             body: JSON.stringify(info)
         })
-            .then(this._checkingResponse);
+            .then(this._checkResponse);
     }
 
     deleteCard(cardId) {
@@ -41,7 +41,7 @@ export class Api {
             method: 'DELETE',
             headers: this._headers,
         })
-            .then(this._checkingResponse);
+            .then(this._checkResponse);
     }
 
     likeCard(cardId) {
@@ -49,7 +49,7 @@ export class Api {
             method: 'PUT',
             headers: this._headers,
         })
-            .then(this._checkingResponse);
+            .then(this._checkResponse);
     }
 
     deleteLike(cardId) {
@@ -57,7 +57,7 @@ export class Api {
             method: 'DELETE',
             headers: this._headers,
         })
-            .then(this._checkingResponse);
+            .then(this._checkResponse);
     }
 
     changeAvatar(info) {
@@ -66,10 +66,10 @@ export class Api {
             headers: this._headers,
             body: JSON.stringify(info)
         })
-            .then(this._checkingResponse);
+            .then(this._checkResponse);
     }
 
-    _checkingResponse(res) {
+    _checkResponse(res) {
         if (res.ok) {
             return res.json()
         } else {

@@ -12,9 +12,10 @@ export class PopupWithSubmitForm extends Popup {
     }
 
     open(item) {
-        super.open();
-        this._item = item;
-        this._itemId = item._id;
+        super.open(); 
+
+        this._item = item; 
+        this._itemId = item.getId(); 
     }
 
     setEventListeners() {
