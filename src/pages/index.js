@@ -151,6 +151,7 @@ function handleProfileSubmit(formData) {
     })
     .finally(() => {
       popupProfile.renderLoading(false);
+      popupProfile.close();
     });
 }
 
@@ -188,6 +189,7 @@ function handleCardSubmit(formData) {
     })
     .finally(() => {
       popupNewCard.renderLoading(false);
+      popupProfile.close();
     });
 }
 
@@ -221,6 +223,7 @@ function handleAvatarSubmit(formData) {
     })
     .finally(() => {
       popupAvatar.renderLoading(false);
+      popupProfile.close();
     });
 }
 
